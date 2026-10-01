@@ -20,14 +20,16 @@ Python · scikit-learn · pandas · TF-IDF · joblib · Tkinter · LaTeX (docume
 
 ## Run
 
+Put the raw datasets into `data/raw/`: `phishing_email.csv` (column `text_combined`), `Enron.csv` and `Nazario.csv` (columns `subject` and `body`), all with a `label` column. Then run from the repository root:
+
 ```bash
-pip install scikit-learn pandas joblib
-python data_prep.py
-python train.py          # choose model: nb / logreg / svm
-python gui_tkinter.py
+pip install scikit-learn pandas scipy joblib
+python src/data_prep.py --out data/processed/processed.csv
+python src/train.py --data data/processed/processed.csv --model svm   # nb / logreg / svm, add --tuning for GridSearchCV
+python src/gui_tkinter.py
 ```
 
-> The source code is being uploaded separately. The full documentation (in Croatian) is in [`docs/`](docs/).
+The trained pipeline is saved to `models/phishing_model.joblib` and the report to `reports/`. The full documentation (in Croatian) is in [`docs/`](docs/).
 
 ## Takeaways
 
@@ -51,4 +53,4 @@ Klasifikator koji poruku označava kao **PHISHING** ili **LEGIT**, uz desktop ap
 3. `train.py`: podjela 80/20, Naive Bayes / logistička regresija / SVM uz GridSearchCV, spremanje modela (.joblib)
 4. `gui_tkinter.py`: aplikacija u kojoj se zalijepi poruka i dobije rezultat s vjerojatnostima
 
-Kod se dodaje naknadno, a cjelovita dokumentacija nalazi se u mapi `docs/`.
+Kod se nalazi u mapi `src/` (naredbe za pokretanje su iznad), a cjelovita dokumentacija u mapi `docs/`.
